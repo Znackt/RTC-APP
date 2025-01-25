@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import Settings from "./pages/Settings.jsx";
-import Profile from "./pages/Profile.jsx"
+import Profile from "./pages/Profile.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Login from "./pages/Login.jsx";
 const App = () => {
