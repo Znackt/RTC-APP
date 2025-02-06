@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
-import { MessageSquare, User, Mail, Eye, EyeOff, Lock, Loader2 } from "lucide-react";
+import {
+  MessageSquare,
+  User,
+  Mail,
+  Eye,
+  EyeOff,
+  Lock,
+  Loader2,
+} from "lucide-react";
 import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
 const SignUp = () => {
@@ -15,11 +23,19 @@ const SignUp = () => {
   const { signup, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
-    if(!formData.fullName.trim()) return toast.error("Full Name is Required!");
-    if(!formData.email.trim()) return toast.error("Email is Required!");
-    if (!/[\w\.-]+@[\w\.-]+\.\w{2,4}/.test(formData.email)) return toast.error("Invalid email format");
-    if(!formData.password.trim()) return toast.error("Password is Required!");
-    if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(formData.password)) return toast.error("Password must at least 8 characters, It must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number");
+    if (!formData.fullName.trim()) return toast.error("Full Name is Required!");
+    if (!formData.email.trim()) return toast.error("Email is Required!");
+    if (!/[\w\.-]+@[\w\.-]+\.\w{2,4}/.test(formData.email))
+      return toast.error("Invalid email format");
+    if (!formData.password.trim()) return toast.error("Password is Required!");
+    if (
+      !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(
+        formData.password
+      )
+    )
+      return toast.error(
+        "Password must at least 8 characters, It must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"
+      );
 
     return true;
   };
@@ -28,8 +44,8 @@ const SignUp = () => {
     e.preventDefault();
 
     const success = validateForm();
-    
-    if(success === true) signup(formData);
+
+    if (success === true) signup(formData);
   };
 
   return (
