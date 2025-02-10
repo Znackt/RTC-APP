@@ -5,7 +5,7 @@ import cors from "cors";
 
 import { connectDB } from "./lib/db.js";
 
-import messageRoutes from "./model/message.model.js";
+import messageRoutes from "./routes/message.route.js";
 import authRoutes from "./routes/auth.route.js";
 
 dotenv.config();
@@ -23,7 +23,7 @@ app.use(
 
 
 app.use("/api/auth", authRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.listen(process.env.PORT, async () => {
   console.log(`App is listening on PORT: ${process.env.PORT}`);
