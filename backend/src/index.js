@@ -7,9 +7,9 @@ import { connectDB } from "./lib/db.js";
 
 import messageRoutes from "./routes/message.route.js";
 import authRoutes from "./routes/auth.route.js";
+import { app, server } from "./lib/socket.io.js";
 
 dotenv.config();
-const app = express();
 
 app.use(express.json({ limit: '20mb', extended: true }));
 app.use(express.urlencoded({ limit: '20mb' , extended: true }));
@@ -25,7 +25,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-app.listen(process.env.PORT, async () => {
+server.listen(process.env.PORT, async () => {
   console.log(`App is listening on PORT: ${process.env.PORT}`);
   await connectDB();
   console.log(`Visit This Site: http://localhost:${process.env.PORT}`);
