@@ -18,12 +18,23 @@ const __dirname = path.resolve();
 app.use(express.json({ limit: '20mb', extended: true }));
 app.use(express.urlencoded({ limit: '20mb' , extended: true }));
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "https://rtc-app-mu.vercel.app"],
-    credentials: true,
-  })
-);
+
+const allowedOrigins = ["http://localhost:5173", "https://rtc-app-mu.vercel.app"];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Specify allowed HTTP methods
+};
+
+app.use(cors(corsOptions));
+
 
 
 app.use("/api/auth", authRoutes);
