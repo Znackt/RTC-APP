@@ -27,10 +27,8 @@ const whitelist = [
 ];
 
 app.use(cors({
-  origin: whitelist,
+  origin: "*",
   credentials: true,
-  methods: ["GET", "PUT", "POST", "DELETE"],
-  allowedHeaders: ["Content-Type"],
 }));
 
 
