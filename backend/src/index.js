@@ -18,6 +18,7 @@ const __dirname = path.resolve();
 app.use(express.json({ limit: '20mb', extended: true }));
 app.use(express.urlencoded({ limit: '20mb' , extended: true }));
 app.use(cookieParser());
+app.use(cors());
 
 // Allowed origins
 const whitelist = [
@@ -25,19 +26,13 @@ const whitelist = [
   "https://rtc-app-mu.vercel.app",
 ];
 
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-          callback(null, true)
-        } else {
-          callback(new Error('You are very chalak bro.....'))
-        }
-      }, 
-    credentials: true, // Allow cookies
-};
-
-
-app.use(cors(corsOptions))
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", whitelist);
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
