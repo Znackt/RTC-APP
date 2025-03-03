@@ -1,18 +1,12 @@
 {
     "builds": [
-        {
-            "src": "src/index.js",
-            "use": "@vercel/node"
-        },
-        {
-            "src": "src/**",
-            "use": "@vercel/static"
-        }
+      {
+        "src": "src/index.js",
+        "use": "@vercel/node"
+      }
     ],
+
     "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/src/index.js"
-        }
+      {"source": "/(.*)", "destination": "src/index.js"}
     ]
-}
+  }
