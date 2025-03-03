@@ -19,23 +19,45 @@ app.use(express.json({ limit: '20mb', extended: true }));
 app.use(express.urlencoded({ limit: '20mb' , extended: true }));
 app.use(cookieParser());
 
-const allowedOrigins = ["http://localhost:5173", "https://rtc-app-mu.vercel.app"];
+// Allowed origins
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://rtc-app-mu.vercel.app",
+];
 
+// CORS configuration
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
+      callback(null, origin); // Allow request if origin is in allowed list
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Specify allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 };
 
+// Apply CORS middleware
 app.use(cors(corsOptions));
 
+// Manually set CORS headers for extra reliability
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
+  }
 
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200); // Handle preflight requests
+  }
+
+  next();
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
