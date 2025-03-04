@@ -16,11 +16,15 @@ dotenv.config();
 const __dirname = path.resolve();
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://rtc-app-mu.vercel.app"], 
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  credentials: true,  
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: [
+    'http://localhost:5173', // Local development
+    'https://rtc-app-mu.vercel.app' // Deployed frontend
+  ],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 
 app.use(express.json({ limit: '20mb', extended: true }));
 app.use(express.urlencoded({ limit: '20mb' , extended: true }));
