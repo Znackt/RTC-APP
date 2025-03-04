@@ -25,9 +25,13 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://rtc-app-mu.vercel.app');
+  next();
+});
 
-app.use(express.json({ limit: '20mb', extended: true }));
-app.use(express.urlencoded({ limit: '20mb' , extended: true }));
+app.use(express.json({ limit: '40mb', extended: true }));
+app.use(express.urlencoded({ limit: '40mb' , extended: true }));
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
