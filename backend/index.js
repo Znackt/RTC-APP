@@ -44,17 +44,3 @@ server.listen(process.env.PORT, async () => {
   await connectDB();
   console.log(`Visit This Site: http://localhost:${process.env.PORT}`);
 });
-
-
-/*
-const corsOptions = {
-    origin: 'http://localhost:3000', // Replace with your frontend URL
-    credentials: true, // Allow credentials
-};
-
-app.use(cors(corsOptions));
-
-app.get('/api/auth/check', (req, res) => {
-    res.json({ message: 'CORS is working!' });
-});
-*/
