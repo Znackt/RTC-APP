@@ -16,7 +16,7 @@ dotenv.config();
 const __dirname = path.resolve();
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Replace with your frontend URL
+  origin: ['http://localhost:5173', 'https://rtc-app-sooty.vercel.app'], // Replace with your frontend URL
   credentials: true, // Allow credentials
 };
 
